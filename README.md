@@ -173,7 +173,7 @@ For a real production system, move prediction logs to durable storage, use a man
 
 
 
-################ End-to-End Fraud Detection MLOps Platform
+################################# End-to-End Fraud Detection MLOps Platform (R/CV) ##############################
 
 A production-oriented **credit card fraud detection system** that demonstrates the complete machine learning lifecycle — from model training and evaluation to containerized API serving, CI/CD, cloud deployment, observability, and data-drift monitoring.
 
