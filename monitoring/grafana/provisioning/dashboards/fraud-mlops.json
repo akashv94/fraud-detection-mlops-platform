@@ -1,0 +1,90 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Prediction Requests",
+      "id": 1,
+      "targets": [
+        {
+          "expr": "fraud_prediction_requests_total",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Fraud Predictions",
+      "id": 2,
+      "targets": [
+        {
+          "expr": "fraud_predictions_total",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 0
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Prediction Request Rate",
+      "id": 3,
+      "targets": [
+        {
+          "expr": "rate(fraud_prediction_requests_total[5m])",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Prediction Latency p95",
+      "id": 4,
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(fraud_prediction_latency_seconds_bucket[5m])) by (le))",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      }
+    }
+  ],
+  "schemaVersion": 39,
+  "tags": [
+    "mlops",
+    "fraud"
+  ],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "title": "Fraud Detection MLOps",
+  "version": 1
+}
