@@ -294,3 +294,10 @@ Production Health Check
 
 This project demonstrates how an ML model can be moved beyond experimentation into a **tested, containerized, observable, cloud-deployed production service with automated CI/CD and drift monitoring**.
 
+##faang
+**End-to-End Fraud Detection MLOps Platform** | Python, XGBoost, FastAPI, Docker, GCP, GitHub Actions, Prometheus, Grafana, Evidently
+
+* Engineered an end-to-end **fraud detection ML system** using XGBoost and SMOTE for highly imbalanced transaction data, achieving **0.982 ROC-AUC, 0.864 PR-AUC, 85.7% recall, and 0.753 F1-score**.
+* Productionized real-time model inference through **FastAPI and Docker**, deploying the containerized service on **Google Cloud Run** with automated **CI/CD via GitHub Actions**, pytest validation, Artifact Registry, and keyless Workload Identity Federation.
+* Implemented production **ML observability and drift monitoring** using Prometheus, Grafana, and Evidently to track inference traffic, latency/errors, fraud predictions, and feature-distribution drift.
+
