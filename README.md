@@ -169,3 +169,128 @@ Before enabling deployment, configure the Google Cloud project, Artifact/GHCR ac
 This repository intentionally does not contain the credit-card dataset or a trained model. Train locally after adding the dataset.
 
 For a real production system, move prediction logs to durable storage, use a managed metrics backend compatible with your cloud architecture, add authentication, secrets management, model registry promotion, alerting, and scheduled drift jobs.
+
+
+
+
+################ End-to-End Fraud Detection MLOps Platform
+
+A production-oriented **credit card fraud detection system** that demonstrates the complete machine learning lifecycle — from model training and evaluation to containerized API serving, CI/CD, cloud deployment, observability, and data-drift monitoring.
+
+## Key Highlights
+
+* Built an **XGBoost + SMOTE** fraud detection pipeline for highly imbalanced transaction data.
+* Achieved **0.982 ROC-AUC, 0.864 PR-AUC, 85.7% Recall, and 0.753 F1-score**.
+* Exposed real-time fraud predictions through a **FastAPI REST API**.
+* Containerized the inference service using **Docker**.
+* Implemented automated testing and **CI/CD using GitHub Actions**.
+* Published container images through **GitHub Container Registry and Google Artifact Registry**.
+* Deployed the production API on **Google Cloud Run**.
+* Implemented keyless GitHub → GCP authentication using **Workload Identity Federation**.
+* Added service observability using **Prometheus + Grafana**.
+* Implemented feature/data-drift monitoring using **Evidently**.
+* Integrated **MLflow** for experiment tracking, with the production model artifact persisted locally for serving.
+
+## Model Performance
+
+| Metric    |  Score |
+| --------- | -----: |
+| ROC-AUC   | 0.9818 |
+| PR-AUC    | 0.8641 |
+| Recall    | 0.8571 |
+| Precision | 0.6720 |
+| F1 Score  | 0.7534 |
+
+## Architecture
+
+```text
+                 Credit Card Transactions
+                           │
+                           ▼
+                    Feature Processing
+                           │
+                           ▼
+                   XGBoost + SMOTE
+                           │
+                           ▼
+                    Trained Model
+                           │
+                           ▼
+                       FastAPI
+                           │
+                           ▼
+                        Docker
+                           │
+                           ▼
+                  Google Cloud Run
+                           │
+                           ▼
+                 Production Inference
+
+
+Git Push
+   │
+   ▼
+GitHub Actions
+   │
+   ├── pytest
+   ├── Docker Build
+   ├── Artifact Registry
+   └── Cloud Run Deployment
+
+
+FastAPI ──────► Prometheus ──────► Grafana
+   │
+   └──────────► Prediction Metrics
+
+Reference Data ──┐
+                 ├──► Evidently ──► Drift Report
+Current Data ────┘
+```
+
+## Tech Stack
+
+**Machine Learning:** Python, XGBoost, scikit-learn, imbalanced-learn
+**API:** FastAPI, Uvicorn
+**MLOps:** MLflow, Evidently, pytest
+**Containers:** Docker, Docker Compose
+**Monitoring:** Prometheus, Grafana
+**CI/CD:** GitHub Actions
+**Cloud:** Google Cloud Run, Google Artifact Registry
+**Authentication:** Google Cloud Workload Identity Federation
+
+## Production API
+
+The model is deployed as a containerized FastAPI service on Google Cloud Run.
+
+Available endpoints include:
+
+* `GET /` — service information
+* `GET /health` — model/service health
+* `GET /model/info` — deployed model information
+* `POST /predict` — real-time fraud prediction
+* `POST /predict/batch` — batch inference
+* `GET /metrics` — Prometheus metrics
+
+## MLOps Workflow
+
+```text
+Code Change
+    ↓
+Git Push
+    ↓
+GitHub Actions
+    ↓
+Automated Tests
+    ↓
+Docker Image Build
+    ↓
+Google Artifact Registry
+    ↓
+Google Cloud Run
+    ↓
+Production Health Check
+```
+
+This project demonstrates how an ML model can be moved beyond experimentation into a **tested, containerized, observable, cloud-deployed production service with automated CI/CD and drift monitoring**.
+
